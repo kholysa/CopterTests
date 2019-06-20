@@ -21,5 +21,7 @@ for i in range(numberOfJumps):
     # fly Right
     elif flightDirection == 4:
         bebop.move_relative(0,jumpSizes,0,0)
+print("Remaining battery: ",
+      bebop.sensors.battery)
 bebop.safe_land(10)
 bebop.disconnect()
