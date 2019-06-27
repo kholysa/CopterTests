@@ -6,7 +6,7 @@ flightDirection = int(input("Select your travel mode:\n\n1: Forward (Type 1)\n2:
 jumpSizes = float(input("Select your Jump size:\n\n10m Jumps (Type 10)\n5m Jumps (Type 5)\n2m Jumps (Type 2)"
                   "\n1m Jumps (Type 1)\n0.5m Jumps (Type 0.5)\n0.2m Jumps (Type 0.2)\n0.1m Jumps (Type 0.1)\n"))
 bebop.safe_takeoff(10)
-numberOfJumps = int(10/jumpSizes)
+numberOfJumps = int(5/jumpSizes)
 for i in range(numberOfJumps):
     print("Moving step number", i)
     #fly forward
