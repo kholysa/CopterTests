@@ -1,4 +1,5 @@
 from pyparrot.Bebop import Bebop
+import numpy
 
 if __name__ == "__main__":
     print(r"""
@@ -16,31 +17,38 @@ if __name__ == "__main__":
                 |
                 |
                 """)
-
-    try:
-        x = float(input("\n\n\nPlease input your desired coordinates:\nX: "))
-        y = float(input("\nY: "))
-        z = float(input("\nZ: "))
-        rotation = float(input("\nCopter Rotation (Radians): "))
-    except:
-        print("Error found. Closing application")
-        import sys
-        sys.exit(0)
-
-    waitAfterArriving = input('Wait after arriving? (Y/N): ').lower()
+    previousPosition = (0, 0, 1, 0)
     bebop = Bebop(ip_address="10.202.0.1")
-    try:
-        success = bebop.connect(2)
-        print("connecting")
+    success = bebop.connect(2)
+    bebop.safe_takeoff(10)
+    yesStrings = {'yes', 'y', 'ye'}
+    while True:
+        try:
 
-        bebop.safe_takeoff(10)
-        bebop.move_relative(y,x,-z+1,rotation)
-        if waitAfterArriving in {'yes','y', 'ye', ''}:
-            while True:
-                keyPress = input("\n\n\n\nPress Enter to land")
+            exit = input("\n\n\n\tExit the program and land the copter (y/n)?")
+            if exit in yesStrings:
                 break
-        bebop.safe_land(10)
-        bebop.disconnect()
-    except:
-        bebop.emergency_land()
-        bebop.disconnect()
+
+            x = float(input("\n\n\n\tPlease input your desired coordinates:\n\tX: "))
+            y = float(input("\n\tY: "))
+            z = float(input("\n\tZ: "))
+            rotation = float(input("\n\tCopter Rotation (Radians): "))
+            delta = numpy.subtract((x, y, z, rotation), previousPosition)
+            previousPosition = (x, y, z, rotation)
+
+            print(delta)
+            bebop.move_relative(0, 0, -delta[2], 0)
+            bebop.move_relative(0, delta[0], 0, 0)
+            bebop.move_relative(delta[1], 0, 0, 0)
+            bebop.move_relative(0, 0, 0, delta[3])
+
+        except:
+            
+            bebop.emergency_land()
+            bebop.disconnect()
+            print("\tError found. Closing application")
+            import sys
+            sys.exit(0)
+
+    bebop.safe_land(10)
+    bebop.disconnect()
