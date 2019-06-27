@@ -3,10 +3,11 @@ from pyparrot.Bebop import Bebop
 bebop = Bebop()
 success = bebop.connect(2)
 flightDirection = int(input("Select your travel mode:\n\n1: Forward (Type 1)\n2: Backwards (Type 2)\n3: Left (Type 3)\n4: Right (Type 4)\n"))
-jumpSizes = float(input("Select your Jump size:\n\n10m Jumps (Type 10)\n5m Jumps (Type 5)\n2m Jumps (Type 2)"
-                  "\n1m Jumps (Type 1)\n0.5m Jumps (Type 0.5)\n0.2m Jumps (Type 0.2)\n0.1m Jumps (Type 0.1)\n"))
+jumpSizes = float(input("Select your Jump size:\n\n5m Jumps (Type 5)\n2.5m Jumps (Type 2.5)"
+                  "\n1m Jumps (Type 1)\n0.5m Jumps (Type 0.5)\n0.25m Jumps (Type 0.25)\n0.1m Jumps (Type 0.1)\n"))
 bebop.safe_takeoff(10)
-numberOfJumps = int(5/jumpSizes)
+totalJump = 5
+numberOfJumps = int(totalJump/jumpSizes)
 for i in range(numberOfJumps):
     print("Moving step number", i)
     #fly forward
