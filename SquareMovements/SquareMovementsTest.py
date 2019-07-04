@@ -7,25 +7,28 @@ jumpSizes = float(input("Select your Jump size:\n\n2m Jumps (Type 2)"
 bebop.safe_takeoff(10)
 totalJump = 2
 numberOfJumps = int(totalJump/jumpSizes)
-for i in range(numberOfJumps):
-    #fly forward
-    bebop.move_relative(jumpSizes, 0, 0, 0)
+try:
+    for i in range(numberOfJumps):
+        #fly forward
+        bebop.move_relative(jumpSizes, 0, 0, 0)
 
-for i in range(numberOfJumps):
-    # fly right
-    bebop.move_relative(0,jumpSizes,0,0)
+    for i in range(numberOfJumps):
+        # fly right
+        bebop.move_relative(0,jumpSizes,0,0)
 
-for i in range(numberOfJumps):
-    # fly backwards
-    bebop.move_relative(-jumpSizes,0,0,0)
+    for i in range(numberOfJumps):
+        # fly backwards
+        bebop.move_relative(-jumpSizes,0,0,0)
 
-for i in range(numberOfJumps):
-    # fly left
-    bebop.move_relative(0,-jumpSizes,0,0)
+    for i in range(numberOfJumps):
+        # fly left
+        bebop.move_relative(0,-jumpSizes,0,0)
 
+    bebop.safe_land(10)
+    bebop.disconnect()
+except:
+    bebop.safe_land(10)
+    bebop.disconnect()
 
 print("Remaining battery: ",
       bebop.sensors.battery)
-
-bebop.safe_land(10)
-bebop.disconnect()
