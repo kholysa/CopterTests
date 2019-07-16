@@ -2,8 +2,9 @@ from pyparrot.Bebop import Bebop
 import numpy
 
 
-def getRealLocation(bebop):
-    bebop.smart_sleep(5)
+def getRealLocation(bebop,sleep=True):
+    if sleep:
+        bebop.smart_sleep(5)
     # Will read the text file and provide the most up to date localisation information
     location = open('C:\\Users\\blab\\Desktop\\test.txt')
     lastLine = location.readlines()[-1]
@@ -43,7 +44,7 @@ try:
     bebop.safe_takeoff(10)
     totalJump = 5
     numberOfJumps = int(totalJump/jumpSizes)
-    firstPosition = getRealLocation(bebop)
+    firstPosition = getRealLocation(bebop,False)
     for i in range(numberOfJumps):
         print("Moving step number", i)
         expectedLocation = numpy.add((0,(1+i) * jumpSizes),firstPosition)
