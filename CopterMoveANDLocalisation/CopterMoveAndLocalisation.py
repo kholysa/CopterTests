@@ -19,6 +19,8 @@ def getRealLocation(bebop,sleep=True):
 def orientCopter(flightDirection, expectedLocation, bebop):
     realLocation = getRealLocation(bebop)
     error = numpy.subtract(realLocation, expectedLocation)
+    print('errorX is: ',error[0])
+    print('errorY is: ',error[1])
     #fly forward
     if flightDirection == 1:
         bebop.move_relative(-error[1], -error[0], 0, 0)
@@ -29,11 +31,11 @@ def orientCopter(flightDirection, expectedLocation, bebop):
         # Orient Copter based on real position and expected position
     # fly Left
     elif flightDirection == 3:
-        bebop.move_relative(error[0], -error[1], 0, 0)
+        bebop.move_relative(-error[0], error[1], 0, 0)
         # Orient Copter based on real position and expected position
     # fly Right
     elif flightDirection == 4:
-        bebop.move_relative(-error[0], error[1], 0, 0)
+        bebop.move_relative(error[0], -error[1], 0, 0)
 
 bebop = Bebop()
 success = bebop.connect(2)
