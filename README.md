@@ -10,5 +10,8 @@ Contains the script to move a copter to an (x,y,z) location
 ## /Square Movements
 Contains the script to test the square movements of a copter
 
-## /CopterMove&Localisation
-Contains the script to a copter while using the UWB localisation sensors
+## /CopterMoveANDLocalisation
+Contains the script to move a copter while using the UWB localisation sensors
+
+## /SquareMovemesntsWithLocalisation
+Contains the script to move a copter in a square while using the UWB localisation sensors
