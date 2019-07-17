@@ -24,7 +24,7 @@ def orientCopter(expectedLocation, bebop):
     bebop.move_relative(-error[1], -error[0], 0, 0)
 
 
-bebop = Bebop(ip_address="10.202.0.1")
+bebop = Bebop()
 success = bebop.connect(2)
 jumpSizes = float(input("Select your Jump size:\n\n2m Jumps (Type 2)"
                   "\n1m Jumps (Type 1)\n0.5m Jumps (Type 0.5)\n0.25m Jumps (Type 0.25)\n"))
@@ -35,11 +35,19 @@ startingPosition = getRealLocation(bebop, False)
 expectedLocation = startingPosition
 try:
     for i in range(numberOfJumps):
+        # fly left
+        bebop.move_relative(0,-jumpSizes,0,0)
+        #Orient the copter
+        expectedLocation = numpy.add((-jumpSizes,0),expectedLocation)
+        orientCopter(expectedLocation,bebop)
+
+    for i in range(numberOfJumps):
         #fly forward
         bebop.move_relative(jumpSizes, 0, 0, 0)
         #Orient the copter
         expectedLocation = numpy.add((0,jumpSizes),expectedLocation)
         orientCopter(expectedLocation,bebop)
+
     for i in range(numberOfJumps):
         # fly right
         bebop.move_relative(0,jumpSizes,0,0)
@@ -52,12 +60,6 @@ try:
         bebop.move_relative(-jumpSizes,0,0,0)
         #Orient the copter
         expectedLocation = numpy.add((0,-jumpSizes),expectedLocation)
-        orientCopter(expectedLocation,bebop)
-    for i in range(numberOfJumps):
-        # fly left
-        bebop.move_relative(0,-jumpSizes,0,0)
-        #Orient the copter
-        expectedLocation = numpy.add((-jumpSizes,0),expectedLocation)
         orientCopter(expectedLocation,bebop)
 
     bebop.safe_land(10)
